@@ -1,0 +1,11 @@
+<script>
+if(typeof(EventSource) !== "undefined") {
+    var source = new EventSource(window.location.href + '/mqtt.php?action=subscribe&topic=/');
+	source.onmessage = function(event) {
+		document.getElementById("result").innerHTML += event.data + "<br>";
+	};
+} else {
+    console.log('Server-sent Events not supported.');
+}
+</script>
+<p id="result"></p>
