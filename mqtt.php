@@ -79,7 +79,12 @@ if($action == 'publish') {
 
 	$mqtt->subscribe([$topic => ['qos' => $qos, 'function' => 'procmsg']], $qos);
 
-	while($mqtt->proc()) {}
+	$time = time();
+	while($mqtt->proc()) {
+		if(time() - $time > 5) {
+			break;
+		}
+	}
 
 	$mqtt->close();
 } else {
